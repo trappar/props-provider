@@ -18,13 +18,14 @@ function render(element, props, keyStack = '') {
   return React.cloneElement(element(props), { key: keyStack });
 }
 
-function validate(element) {
+function validate(element, propName, componentName, stack=false) {
+  stack = stack || [propName];
   let error = null;
   if (element) {
     if (Array.isArray(element)) {
-      element.forEach((subElement) => {
+      element.forEach((subElement, i) => {
         if (!error) { // Short circuit the forEach if we have found an error
-          const result = validate(subElement);
+          const result = validate(subElement, propName, componentName, [...stack, `[${i}]`]);
           if (result) {
             error = result;
           }
@@ -32,8 +33,8 @@ function validate(element) {
       });
     } else if (!React.isValidElement(element) && typeof element !== 'function') {
       error = new Error(
-        'Children passed to PropProvider must be a React element, function, or a nested array ' +
-        `containing exclusively those elements. "${typeof element}" given.`
+        `${propName} prop of ${componentName} must be a React element, function, or a nested array ` +
+        `containing exclusively those elements. '${typeof element}' was found in '${stack.join('')}'.`
       );
     }
   }
@@ -43,7 +44,7 @@ function validate(element) {
 export default function PropsProvider(props) {
   return render(props.children, props);
 }
-
+PropsProvider.PropType = (props, propName, componentName) => validate(props[propName], propName, componentName);
 PropsProvider.propTypes = {
-  children: ({ children }) => validate(children),
+  children: PropsProvider.PropType,
 };

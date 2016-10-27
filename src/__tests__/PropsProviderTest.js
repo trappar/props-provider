@@ -7,6 +7,9 @@ const PassProp = props => (
     {props.children}
   </PropsProvider>
 );
+PassProp.propTypes = {
+  children: PropsProvider.PropType
+};
 
 const Element = ({testProp}) => <div>{testProp}</div>;
 
@@ -94,10 +97,12 @@ test('Fails when invalid types are supplied', () => {
   expect(() => {
     mount((
       <PassProp>
-        {"text nodes can't be given props"}
+        {["text nodes can't be given props"]}
       </PassProp>
     ))
   }).toThrow();
 
-  expect(mockConsole.mock.calls[0][0]).toContain('Children passed to PropProvider');
+  const warning = mockConsole.mock.calls[0][0];
+  expect(warning).toContain('children prop of PassProp');
+  expect(warning).toContain('\'string\' was found in \'children[0]\'');
 });
