@@ -3,13 +3,15 @@ React Component for passing props to dynamic children
 
 ## Introduction
 
-The `PropsProvider` component allows separation of components into their computational and presentational aspects. This allows for a higher degree of component reuse when those aspects are not intrinsically tied to each other.
+The `PropsProvider` component primarily allows components to defer rendering details to their children. This allows for a higher degree of component reuse when those aspects are not intrinsically tied to each other.
 
 ## Table of Contents
 
 * [Installation](#installation)
 * [Tutorial](docs/tutorial.md)
 * [Usage](docs/usage.md)
+* Examples
+  * [Paginator](docs/example-paginator.md)
 * [License](#license)
 
 ## Installation
