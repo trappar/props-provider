@@ -8,7 +8,7 @@ In React it's easy to pass props down from one component to another normally, bu
 ## Table of Contents
 
 * [Installation](#installation)
-* [Tutorial](docs/configuration.md)
+* [Tutorial](docs/tutorial.md)
 * [Usage](docs/usage.md)
 * [License](#license)
 

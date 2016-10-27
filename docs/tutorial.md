@@ -64,7 +64,7 @@ Now we get the following:
 
 <img width="172" src="https://cloud.githubusercontent.com/assets/525726/19749957/2fd93988-9ba2-11e6-8481-eef46c20a183.png">
 
-Great! We've got a slightly more interesting arbitrary example. But wait, what if we want to be able to display the colors using **both** methods? Put both sets of code into the component and control which way it renders using another prop? What if we want to add a third way to render the results? A fourth? Things quickly get out of hand. **We need to separate the computational aspects of the component from the display aspects of the component.** *But how?*
+Great! We've got a slightly more interesting arbitrary example. But wait, what if we want to be able to display the colors using **both** methods? Put both sets of code into the component and control which way it renders using another prop? What if we want to add a third way to render the results? A fourth? Things quickly get out of hand. **We need to separate the computational aspects of the component from the presentational aspects of the component.** *But how?*
  
 ### Enter PropsProvider!
 
@@ -100,7 +100,7 @@ Now let's render this new component:
 
 ### What's going on?
 
-PropsProvider is passing all properties given to it on to all its children, which in this case is a function which renders a specific presentation of those props. If we want to change the presentational code, we can do so without touching the computation component. Like so...
+PropsProvider is passing all properties given to it on to all its children, which in this case is a function which renders a specific presentation of those props. If we want to change the presentational code, we can do so without touching the computation component:
 
 ```jsx
 <HexToRGB color="fa3c9d">

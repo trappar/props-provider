@@ -1,6 +1,6 @@
 # Usage
 
-The `PropsProvider` component is flexible and easy to use. Any props passed into `PropsProvider` will be recursively given to all of `PropsProvider`'s children. PropsProvider's children can come in many forms:
+The `PropsProvider` component is flexible and easy to use. Any props passed into `PropsProvider` will be recursively given to all of `PropsProvider`'s children. `PropsProvider`'s children can come in many forms:
 
 ### Functions
 
@@ -41,7 +41,7 @@ When multiple components are passed into `PropsProvider` they all get `PropsProv
 
 Works exactly the same as using multiple components. `PropsProvider` just passes its props to all elements in the resulting array.
 
-**Important!** It is required to specify a key for each item in when using this method. Internally PropsProvider actually provides its own keys - overriding those that you specify here, but evidently there is a bug in React where it does not see that.
+**Important!** It is required to specify a key for each item in when using this method. Internally `PropsProvider` actually provides its own keys - overriding those that you specify here, but evidently there is a bug in React where it does not see that.
 
 ```jsx
 <PropsProvider className="alert">
