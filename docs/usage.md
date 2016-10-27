@@ -2,6 +2,20 @@
 
 The `PropsProvider` component is flexible and easy to use. Any props passed into `PropsProvider` will be recursively given to all of `PropsProvider`'s children. `PropsProvider`'s children can come in many forms:
 
+## Table of Contents
+
+* [Examples of Valid Children](#examples-of-valid-children)
+  * [Functions](#functions)
+  * [Components](#components)
+  * [Multiple Components](#multiple-components)
+  * [Arrays of Components](#arrays-of-components)
+  * [Arrays of Functions](#arrays-of-functions)
+* [Other Usage Information](#other-usage-information)
+  * [Overriding PropsProvider Props](#overriding-propsprovider-props)
+  * [Custom PropType Validation in Your Components](#custom-proptype-validation-in-your-components)
+
+## Examples of Valid Children
+
 ### Functions
 
 Use an inline function which accepts props from the `PropsProvider` as its first argument.
@@ -26,7 +40,7 @@ Mount props to an existing component.
 </PropsProvider>
 ```
 
-### Multiple components
+### Multiple Components
 
 When multiple components are passed into `PropsProvider` they all get `PropsProvider`'s props.
 
@@ -37,7 +51,7 @@ When multiple components are passed into `PropsProvider` they all get `PropsProv
 </PropsProvider>
 ```
 
-### Arrays of components
+### Arrays of Components
 
 Works exactly the same as using multiple components. `PropsProvider` just passes its props to all elements in the resulting array.
 
@@ -51,7 +65,7 @@ Works exactly the same as using multiple components. `PropsProvider` just passes
 </PropsProvider>
 ```
 
-### Arrays of functions
+### Arrays of Functions
 
 Same idea as with arrays of components, but props are passed into the function instead of passing them directly to the components. 
 
@@ -63,7 +77,9 @@ Same idea as with arrays of components, but props are passed into the function i
 </PropsProvider>
 ```
 
-### Overriding PropsProvider props
+## Other Usage Information
+
+### Overriding PropsProvider Props
 
 When the same prop is specified in both `PropsProvider` and one of its children the value from the child takes precedence.
 
@@ -72,4 +88,14 @@ When the same prop is specified in both `PropsProvider` and one of its children 
   <div style={{display: 'block'}}>I will be displayed</div>
   <div>I will not be displayed</div>
 </PropsProvider>
+```
+
+### Custom PropType Validation in Your Components
+
+When accepting a prop in your component that will be passed to `PropsProvider` it is recommended to use the `PropsProvider` custom PropType, which you will already have access to if you have imported `PropsProvider`
+
+```jsx
+MyComponent.propTypes = {
+  children: PropsProvider.PropType
+};
 ```

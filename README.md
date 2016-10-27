@@ -5,6 +5,8 @@ React Component for passing props to dynamic children
 
 The `PropsProvider` component primarily allows components to defer rendering details to their children. This allows for a higher degree of component reuse when those aspects are not intrinsically tied to each other.
 
+This same concept already being used in many widely adopted libraries. For example, React Router v4 uses this idea to allow for [deferred rendering of links](https://react-router.now.sh/Link). The advantage to using this component is  standardization of the concept as well as additional functionality.
+
 ## Table of Contents
 
 * [Installation](#installation)
