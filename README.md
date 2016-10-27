@@ -3,7 +3,7 @@ React Component for passing props to dynamic children
 
 ## Introduction
 
-In React it's easy to pass props down from one component to another normally, but when dealing with unknown dynamic children it becomes more difficult. This component standardizes this process.
+The `PropsProvider` component allows separation of components into their computational and presentational aspects. This allows for a higher degree of component reuse when those aspects are not intrinsically tied to each other.
 
 ## Table of Contents
 
@@ -12,7 +12,7 @@ In React it's easy to pass props down from one component to another normally, bu
 * [Usage](docs/usage.md)
 * [License](#license)
 
-### Installation
+## Installation
 
 Install as you would any other NPM dependency
 

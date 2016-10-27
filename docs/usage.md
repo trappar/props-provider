@@ -70,5 +70,6 @@ When the same prop is specified in both `PropsProvider` and one of its children 
 ```jsx
 <PropsProvider style={{display: 'none'}}>
   <div style={{display: 'block'}}>I will be displayed</div>
+  <div>I will not be displayed</div>
 </PropsProvider>
 ```

@@ -1,6 +1,6 @@
 {
   "name": "props-provider",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React Component for passing props to dynamic children",
   "main": "index.js",
   "repository": {

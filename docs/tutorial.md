@@ -1,13 +1,13 @@
 # Tutorial
 
-For this tutorial we'll be building an extensible component which takes a hex color code as a property and then turns that into individual decimal RGB values.
+For this tutorial we'll be building a component which takes a hex color code as a property and then turns that into individual decimal RGB values.
 
 Let's start with what you should already be fairly familiar with:
 
 ```jsx
 import React from 'react';
 
-const DisplayColorValues = props => {
+const DisplayColorValues = (props) => {
   let bigint = parseInt(props.color, 16);
   const r = (bigint >> 16) & 255;
   const g = (bigint >> 8) & 255;
@@ -42,7 +42,7 @@ It does what we want in this specific scenario, but what if we wanted to have a 
 ```jsx
 import React from 'react';
 
-const DisplayColorValues = props => {
+const DisplayColorValues = (props) => {
   let bigint = parseInt(props.color, 16);
   const r = (bigint >> 16) & 255;
   const g = (bigint >> 8) & 255;
@@ -64,17 +64,29 @@ Now we get the following:
 
 <img width="172" src="https://cloud.githubusercontent.com/assets/525726/19749957/2fd93988-9ba2-11e6-8481-eef46c20a183.png">
 
-Great! We've got a slightly more interesting arbitrary example. But wait, what if we want to be able to display the colors using **both** methods? Put both sets of code into the component and control which way it renders using another prop? What if we want to add a third way to render the results? A fourth? Things quickly get out of hand. **We need to separate the computational aspects of the component from the presentational aspects of the component.** *But how?*
+Great! Our component is looking... well... like an example. But wait, what if we want to be able to display the colors using **both** methods?
+
+There of course many ways to accomplish this goal. We can:
+
+Create two separate components and have them share a function for converting the hex color to RGB.
+
+or...
+
+Put both sets of code into the component and control which way it renders using another prop.
+ 
+But what if we want to add a third way to render the results? Things quickly get out of hand. With the separate components approach now we have three components which share a certain amount of boilerplate. It would be easy to mistakenly update one of these but not another and introduce a bug. Alternatively, with controlling which rendering method is used inside a single component we don't have that problem. Instead that component will progressively become more difficult to work on as specific implementation details pile up inside it.
+
+**We need to separate the computational aspects of the component from the presentational aspects of the component.** *But how?*
  
 ### Enter PropsProvider!
 
-Code first, then explanation:
+Here we have extracted just the computational aspects of the component, but what's with the return value?
 
 ```jsx
 import React from 'react';
 import PropsProvider from 'props-provider';
 
-const HexToRGB = props => {
+const HexToRGB = (props) => {
   let bigint = parseInt(props.color, 16);
   const r = (bigint >> 16) & 255;
   const g = (bigint >> 8) & 255;
@@ -84,7 +96,7 @@ const HexToRGB = props => {
 };
 ```
 
-Now let's render this new component:
+`PropsProvider` enables us to have the values computed in the `HexToRGB` component blindly passed off to `HexToRGB`'s children. We don't need to know how they will be used when writing `HexToRGB` - that detail is left up to the specific use case:
 
 ```jsx
 <HexToRGB color="fa3c9d">
@@ -100,12 +112,13 @@ Now let's render this new component:
 
 ### What's going on?
 
-PropsProvider is passing all properties given to it on to all its children, which in this case is a function which renders a specific presentation of those props. If we want to change the presentational code, we can do so without touching the computation component:
+PropsProvider is passing all props given to it on to all its children, which in this case is a function which renders a specific presentation of those props. If we want to change the presentational code, we can do so without touching the computation component:
 
 ```jsx
 <HexToRGB color="fa3c9d">
   {({r, g, b}) => {
     const baseStyle = {display: 'inline-block', width: 50, height: 50, color: 'white'};
+    
     return (
       <div>
         <div style={{...baseStyle, backgroundColor: `rgb(${r}, 0, 0)`}}>{r}</div>
@@ -117,14 +130,14 @@ PropsProvider is passing all properties given to it on to all its children, whic
 </HexToRGB>
 ```
 
-We can also separate the presentational code into its own component:
+`PropsProvider` also allows us to separate the presentational code into its own component:
 
 ```jsx
 import React from 'react';
 
-const DisplayRGBSquares = props => {
-  const baseStyle = {display: 'inline-block', width: 50, height: 50, color: 'white'};
+const RGBSquares = (props) => {
   const {r, g, b} = props;
+  const baseStyle = {display: 'inline-block', width: 50, height: 50, color: 'white'};
   
   return (
     <div>
@@ -140,6 +153,13 @@ And now rendering becomes a simple composition of the computation component and 
 
 ```jsx
 <HexToRGB color="fa3c9d">
-  <DisplayRGBSquares/>
+  <RGBSquares/>
 </HexToRGB>
 ```
+
+We now have two components:
+
+* `HexToRGB` - Accepts a hex color and converts it into individual RGB values
+* `RGBSquares` - Displays RGB values inside squares
+
+Either of these components can be used in different contexts. `RGBSquares` can even be used totally independently of `HexToRGB`!
