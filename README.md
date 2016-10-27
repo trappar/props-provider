@@ -1,4 +1,4 @@
-# PropsProvider
+# PropsProvider [![Build Status](https://travis-ci.org/trappar/props-provider.svg?branch=master)](https://travis-ci.org/trappar/props-provider)
 React Component for passing props to dynamic children
 
 ## Introduction
