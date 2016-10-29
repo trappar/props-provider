@@ -41,8 +41,8 @@ function validate(element, propName, componentName, stack=false) {
   return error;
 }
 
-export default function PropsProvider(props) {
-  return render(props.children, props);
+export default function PropsProvider({children, ...props}) {
+  return render(children, props);
 }
 PropsProvider.PropType = (props, propName, componentName) => validate(props[propName], propName, componentName);
 PropsProvider.propTypes = {
