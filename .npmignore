@@ -1,5 +1,6 @@
 .idea
 .babelrc
+.eslintignore
 .eslintrc
 .gitignore
 .npmignore

@@ -11,7 +11,7 @@ PassProp.propTypes = {
   children: PropsProvider.PropType
 };
 
-const Element = ({testProp}) => <div>{testProp}</div>;
+const Element = ({ testProp }) => <div>{testProp}</div>;
 
 test('Passes prop to function', () => {
   expect(

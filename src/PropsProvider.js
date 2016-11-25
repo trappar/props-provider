@@ -15,10 +15,10 @@ function render(element, props, keyStack = '') {
     return React.cloneElement(element, { ...props, ...element.props, key: keyStack });
   }
 
-  return React.cloneElement(element(props), { key: keyStack });
+  return React.createElement(element, { ...props, key: keyStack });
 }
 
-function validate(element, propName, componentName, stack=false) {
+function validate(element, propName, componentName, stack = false) {
   stack = stack || [propName];
   let error = null;
   if (element) {
