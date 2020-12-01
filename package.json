@@ -41,7 +41,7 @@
     "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.3.2"
   },
-  "dependencies": {
-    "react": "^15.3.2"
+  "peerDependencies": {
+    "react": "^15.3.2 | ^16.0.0 | ^17.0.0"
   }
 }
